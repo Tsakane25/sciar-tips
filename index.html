@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sciar Tips · Card tips paid to your team, every Monday</title>
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; font-size:19px; line-height:1.55; color:#000; background:#fff; }
+  main { max-width:720px; margin:0 auto; padding:20px 16px; }
+  .tag { font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; border-bottom:3px solid #000; padding-bottom:10px; }
+  h1 { font-size:2.1rem; line-height:1.15; margin:24px 0 12px; }
+  .lead { font-size:1.15rem; }
+  h2 { font-size:1.2rem; margin:36px 0 12px; border-top:2px solid #000; padding-top:16px; }
+  ol.claims { list-style:none; padding:0; margin:0; counter-reset:c; }
+  ol.claims li { border:2px solid #000; padding:16px; margin:12px 0; }
+  .num { font-size:2rem; font-weight:800; line-height:1.1; display:block; margin-bottom:6px; }
+  sup a { color:#000; font-weight:700; text-decoration:none; }
+  .cta { display:block; text-align:center; background:#000; color:#fff; font-weight:700; padding:16px; margin:12px 0; text-decoration:none; border:2px solid #000; }
+  .cta.alt { background:#fff; color:#000; }
+  .cta:focus { outline:3px solid #000; outline-offset:3px; }
+  .notes { font-size:.8rem; color:#333; }
+  .notes li { margin-bottom:8px; }
+  code { font-size:.78rem; background:#f2f2f2; padding:1px 4px; }
+  footer { margin-top:40px; border-top:2px solid #000; padding-top:12px; font-size:.8rem; color:#333; }
+</style>
+</head>
+<body>
+<main>
+  <div class="tag">Sciar Tips · for restaurant owners · alpha</div>
+
+  <h1>Card tips paid to your team every Monday, and every person can see how theirs was worked out.</h1>
+  <p class="lead">Sciar Tips connects to your card terminal, splits the week's card tips by the rule you set, and pays your staff each Monday. Here is what our twelve-week pilot with one Dublin restaurant shows.</p>
+
+  <h2>Three things that are true today</h2>
+  <ol class="claims">
+    <li>
+      <span class="num">€31,754.13</span>
+      in card tips came in over the 12-week pilot, and €31,754.09 was paid out to staff. The 4 cent difference is rounding.<sup><a href="#n1">1</a></sup>
+    </li>
+    <li>
+      <span class="num">12 Mondays, 152 payouts</span>
+      Staff were paid every week of the pilot, one payout per person per week.<sup><a href="#n2">2</a></sup>
+    </li>
+    <li>
+      <span class="num">Every payout is explained</span>
+      Each person can open their own staff view to see their hours, which hours earned tips, and the sum behind their payout, and can write a question to Sciar. Their colleagues' pay stays private. (In this alpha, questions are saved on the person's own phone and not yet sent.)<sup><a href="#n3">3</a></sup>
+    </li>
+  </ol>
+
+  <h2>Try it</h2>
+  <a class="cta" href="mailto:hello@sciar.example?subject=Sciar%20Tips%20for%20my%20restaurant">Email us to join the next pilot</a>
+  <a class="cta alt" href="app.html">See the staff view (demo)</a>
+
+  <h2>Sources</h2>
+  <ol class="notes">
+    <li id="n1"><code>takings.csv</code>, all 72 opening days, weeks 1–12: sum of <code>card_tips_eur</code> = €31,754.13. <code>payouts.csv</code>, all 152 rows: sum of <code>tip_payout_eur</code> = €31,754.09. The pack's data dictionary notes payout totals can differ from the pool by a few cents because of rounding.</li>
+    <li id="n2"><code>payouts.csv</code>: 12 distinct values of <code>week</code> (week_start 14 Aug to 30 Oct 2028, all Mondays), 152 rows, one per person per week.</li>
+    <li id="n3">What the alpha <a href="app.html">staff view</a> does: it computes each figure live from <code>payouts.csv</code> and <code>takings.csv</code>. In the alpha, a question is saved in the browser only (a demo, not yet sent).</li>
+  </ol>
+
+  <footer>
+    Sciar Ltd and its pilot restaurant are part of a fictional teaching case (NCI, H9LOCHFFT). All figures are invented pilot data, set in 2028. hello@sciar.example is not a real address.
+  </footer>
+</main>
+</body>
+</html>
