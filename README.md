@@ -30,7 +30,7 @@
 
 ## Part 4c: The Struggle (written without AI)
 
-*I used AI to help me ananlyse the case and give eme an understanding of what ever was needed on my end in simple English terms.In Github when I uploaded the data log folder it changed the files into single files and I had to add the word “data” in front of the all toto be able to put them into one single folder.And during all of this I had to the AI lof eneded going into this folder and I had to retrieve it. The problem at first was that the app came back looking like an app and I went back to calude to ask it to make it more like an app which he did was was very pleased. Next time I am asking him to actualy do the app or make it look like an app before hand and another thing I also could have done was to implement a second language in the app.*
+*I used AI to help me ananlyse the case and give eme an understanding of what ever was needed on my end in simple English terms.In Github when I uploaded the data log folder it changed the files into single files and I had to add the word “data” in front of the all toto be able to put them into one single folder (commit 2adc38c).And during all of this I had to the AI lof eneded going into this folder and I had to retrieve it. The problem at first was that the app came back looking like an app and I went back to calude to ask it to make it more like an app which he did was was very pleased. Next time I am asking him to actualy do the app or make it look like an app before hand and another thing I also could have done was to implement a second language in the app.*
 
 ## Assumptions
 
