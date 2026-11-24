@@ -1,0 +1,18 @@
+AI sessions used for CA2 (Sciar Tips), Tuesday 24 November 2026
+
+Tools:
+- Claude (claude.ai): understanding the brief, building app.html and index.html, checking the README draft.
+- Microsoft Copilot (Edge sidebar): brief pages attached; no answer used.
+
+Screenshots, in order:
+01-copilot-brief-pages-attached.png        Copilot sidebar with brief pages attached
+02-claude-understanding-the-brief.png      Asked Claude to explain the brief in simple terms
+03-claude-step-by-step-plan.png            Claude's step-by-step plan (Parts 2 and 3)
+04-claude-where-to-start-github-setup.png  GitHub repository and Pages setup steps
+05-claude-redesign-essay-to-app.png        I said the staff view looked like an essay; Claude rebuilt it as a phone app
+06-claude-readme-draft-check.png           Uploaded my README draft for a grammar check
+07-live-staff-view-app.png                 The live staff view (app.html) on GitHub Pages
+
+
+
+Part 4c was written by me without AI.
