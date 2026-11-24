@@ -1,5 +1,6 @@
-**Live site:** https://YOUR-USERNAME.github.io/sciar-tips/
-**Repository:** https://github.com/YOUR-USERNAME/sciar-tips
+**Live site:** https://tsakane25.github.io/sciar-tips/
+
+**Repository:** https://github.com/Tsakane25/sciar-tips
 
 **Question:** _to be written_
 
