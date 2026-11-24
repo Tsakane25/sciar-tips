@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sciar Tips · My tips</title>
+<style>
+  * { box-sizing:border-box; min-width:0; }
+  :root { --bg:#eeeeee; --card:#fff; --ink:#000; --muted:#555; --line:#d6d6d6; }
+  html, body { margin:0; height:100%; }
+  body { font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; font-size:18px; line-height:1.45; color:var(--ink); background:#1a1a1a; }
+  .phone { max-width:430px; margin:0 auto; min-height:100%; background:var(--bg); display:flex; flex-direction:column; position:relative; }
+  /* top bar */
+  .top { position:sticky; top:0; z-index:5; background:#000; color:#fff; padding:14px 16px 12px; }
+  .top-row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .brand { font-weight:800; font-size:1.1rem; letter-spacing:.01em; }
+  .who { display:flex; align-items:center; gap:8px; }
+  .avatar { width:36px; height:36px; border-radius:50%; background:#fff; color:#000; display:grid; place-items:center; font-weight:800; flex:none; }
+  .demo { margin-top:10px; display:flex; align-items:center; gap:8px; font-size:.75rem; color:#bbb; }
+  .demo select { flex:1; font:inherit; font-size:.85rem; color:#fff; background:#222; border:1px solid #555; border-radius:8px; padding:6px 8px; }
+  /* screens */
+  .screen { display:none; padding:16px 14px 110px; }
+  .screen.on { display:block; }
+  h1 { font-size:1.35rem; margin:4px 2px 12px; }
+  .card { background:var(--card); border-radius:18px; padding:18px; margin-bottom:14px; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .card.dark { background:#000; color:#fff; }
+  .label { font-size:.85rem; color:var(--muted); }
+  .dark .label { color:#bbb; }
+  .money { font-size:3rem; font-weight:800; line-height:1.05; margin:6px 0 4px; letter-spacing:-.02em; }
+  .stat { font-size:2rem; font-weight:800; line-height:1.1; margin:4px 0; }
+  .meter { display:flex; height:18px; border-radius:9px; overflow:hidden; border:2px solid #000; margin:10px 0 6px; background:#fff; }
+  .dark .meter { border-color:#fff; background:#000; }
+  .meter .paid { background:#000; }
+  .dark .meter .paid { background:#fff; }
+  .key { display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; }
+  .key i { display:inline-block; width:12px; height:12px; border:2px solid currentColor; margin-right:5px; vertical-align:-1px; }
+  .key i.f { background:currentColor; }
+  .src { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.68rem; color:var(--muted); border-top:1px solid var(--line); margin-top:12px; padding-top:8px; overflow-wrap:anywhere; }
+  .dark .src { color:#aaa; border-color:#333; }
+  .btn { display:block; width:100%; font:inherit; font-weight:700; text-align:center; padding:15px; border-radius:14px; border:2px solid #000; background:#000; color:#fff; cursor:pointer; text-decoration:none; }
+  .btn.ghost { background:#fff; color:#000; }
+  .btn:focus-visible, select:focus-visible, textarea:focus-visible, .tab:focus-visible, .chip:focus-visible { outline:3px solid #000; outline-offset:2px; }
+  /* week list */
+  .wk { display:grid; grid-template-columns:52px 1fr 72px; gap:10px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); }
+  .wk:last-child { border-bottom:0; }
+  .wk b { font-size:.95rem; }
+  .wk .sub { font-size:.75rem; color:var(--muted); }
+  .wk .eur { text-align:right; font-weight:700; white-space:nowrap; }
+  .wk .meter { height:12px; margin:4px 0 2px; }
+  /* steps */
+  .step { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); }
+  .step:last-of-type { border-bottom:0; }
+  .n { width:30px; height:30px; border-radius:50%; background:#000; color:#fff; display:grid; place-items:center; font-weight:800; flex:none; font-size:.9rem; }
+  .sum { font-weight:800; font-size:1.05rem; }
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .grp { border:2px solid #000; border-radius:14px; padding:12px; }
+  .grp h3 { margin:0 0 6px; font-size:1rem; }
+  .row { display:flex; justify-content:space-between; font-size:.85rem; padding:3px 0; }
+  .row b { font-size:1rem; }
+  /* ask */
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 14px; }
+  .chip { font:inherit; font-size:.9rem; padding:10px 14px; border-radius:999px; border:2px solid #000; background:#fff; cursor:pointer; }
+  .chip[aria-pressed="true"] { background:#000; color:#fff; }
+  textarea { width:100%; font:inherit; border:2px solid #000; border-radius:14px; padding:12px; min-height:110px; resize:vertical; }
+  .privacy { display:flex; gap:10px; align-items:flex-start; font-size:.9rem; }
+  .lock { font-size:1.3rem; line-height:1; }
+  .msg { border:2px solid #000; border-radius:14px; padding:12px; margin-top:10px; font-size:.9rem; }
+  .status { display:inline-block; font-size:.72rem; font-weight:700; background:#000; color:#fff; border-radius:999px; padding:3px 9px; margin-top:6px; }
+  .toast { font-size:.9rem; font-weight:700; margin:10px 2px 0; min-height:1.2em; }
+  /* tab bar */
+  .tabs { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; background:#fff; border-top:2px solid #000; display:grid; grid-template-columns:repeat(4,1fr); z-index:6; padding-bottom:env(safe-area-inset-bottom); }
+  .tab { font:inherit; font-size:.75rem; font-weight:600; background:none; border:0; padding:10px 4px 12px; cursor:pointer; color:#666; display:flex; flex-direction:column; align-items:center; gap:3px; }
+  .tab svg { width:24px; height:24px; }
+  .tab[aria-selected="true"] { color:#000; font-weight:800; }
+  .tab[aria-selected="true"] svg { stroke-width:2.6; }
+  .foot { font-size:.72rem; color:var(--muted); text-align:center; margin:18px 8px 0; }
+  .foot a { color:#000; }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <header class="top">
+    <div class="top-row">
+      <span class="brand">Sciar Tips</span>
+      <span class="who"><span id="hello">Hi</span><span class="avatar" id="avatar" aria-hidden="true">R</span></span>
+    </div>
+    <label class="demo">Demo — view as
+      <select id="who" aria-label="Demo: choose a staff member"></select>
+    </label>
+  </header>
+
+  <!-- HOME -->
+  <section class="screen on" id="home" aria-label="Home">
+    <div class="card dark">
+      <div class="label" id="weekLabel"></div>
+      <div class="money" id="lastPay"></div>
+      <div class="label">your tips, paid Monday</div>
+      <div class="meter" aria-hidden="true"><span class="paid" id="lastBar"></span></div>
+      <div class="key"><span><i class="f"></i><span id="lastPaid"></span></span><span><i></i><span id="lastLate"></span></span></div>
+      <div class="src" id="lastSrc"></div>
+    </div>
+
+    <div class="card">
+      <div class="label">Since you started</div>
+      <div class="stat" id="zeroPct"></div>
+      <div id="zeroText"></div>
+      <div class="meter" aria-hidden="true"><span class="paid" id="zeroBar"></span></div>
+      <div class="src" id="zeroSrc"></div>
+    </div>
+
+    <button class="btn" type="button" data-go="ask">Ask a question about my tips</button>
+    <p class="foot">Fictional teaching case (NCI). All people and figures are invented.<br><a href="index.html">About Sciar Tips</a></p>
+  </section>
+
+  <!-- WEEKS -->
+  <section class="screen" id="weeks" aria-label="My weeks">
+    <h1>My weeks</h1>
+    <div class="card">
+      <div class="key" style="margin-bottom:6px"><span><i class="f"></i>hours that earned tips</span><span><i></i>after 23:00, no tips</span></div>
+      <div id="weekList"></div>
+      <div class="src" id="weeksSrc"></div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="screen" id="how" aria-label="How it works">
+    <h1>How my tips were worked out</h1>
+    <div class="card" id="howCard"></div>
+
+    <h1 style="margin-top:22px">Floor and kitchen</h1>
+    <div class="card">
+      <div class="label" style="margin-bottom:10px">Whole pilot, weeks 1–12. Only groups of 3 or more people are shown, so no one can be picked out.</div>
+      <div class="split" id="groups"></div>
+      <div class="src">payouts.csv, weeks 1–12. Floor = role in (floor manager, server, bar), 8 people. Kitchen = role in (chef, kitchen porter), 5 people in weeks 1–8, 4 in weeks 9–12. Each share = group's sum of hours / tip_payout_eur / hours_after_2300 ÷ all staff.</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Service charge (tables of 6+). Not part of the tip pool.</div>
+      <div class="stat" id="sc"></div>
+      <div id="scText"></div>
+      <div class="src">takings.csv, all 72 rows: sum of service_charge_eur; count of rows where service_charge_paid_to = "house".</div>
+    </div>
+  </section>
+
+  <!-- ASK -->
+  <section class="screen" id="ask" aria-label="Ask">
+    <h1>Ask a question</h1>
+    <div class="card">
+      <div class="privacy"><span class="lock" aria-hidden="true">🔒</span><div><b>Only you and Sciar see this.</b> The restaurant never sees your name or your words. The owner only sees how many questions are open, and only when there are 3 or more.</div></div>
+    </div>
+    <div class="card">
+      <div class="label">What is it about?</div>
+      <div class="chips" id="topics" role="group" aria-label="Topic">
+        <button class="chip" type="button" aria-pressed="true">My tips look wrong</button>
+        <button class="chip" type="button" aria-pressed="false">How tips are counted</button>
+        <button class="chip" type="button" aria-pressed="false">My hours look wrong</button>
+        <button class="chip" type="button" aria-pressed="false">Something else</button>
+      </div>
+      <label class="label" for="msg">Your message — any language, short is fine</label>
+      <textarea id="msg" style="margin-top:6px"></textarea>
+      <button class="btn" id="send" type="button" style="margin-top:12px">Send to Sciar</button>
+      <p class="toast" id="sent" role="status"></p>
+      <div class="label" style="font-size:.75rem">Demo: your message is saved only in this browser. It is not sent to anyone.</div>
+    </div>
+    <h1 style="margin-top:22px">My questions</h1>
+    <div id="mine"></div>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Main">
+    <button class="tab" role="tab" data-go="home" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+    <button class="tab" role="tab" data-go="weeks" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>My weeks</button>
+    <button class="tab" role="tab" data-go="how" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg>How it works</button>
+    <button class="tab" role="tab" data-go="ask" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>Ask</button>
+  </nav>
+</div>
+
+<script src="data/payouts.js"></script>
+<script src="data/takings.js"></script>
+<script>
+{
+  const P = PAYOUTS.map(r => ({ week:+r.week, id:r.staff_id, name:r.first_name, role:r.role, hours:+r.hours, late:+r.hours_after_2300, pph:+r.points_per_hour, points:+r.points, pool:+r.week_pool_eur, pay:+r.tip_payout_eur }));
+  const T = TAKINGS.map(r => ({ sc:+r.service_charge_eur, to:r.service_charge_paid_to }));
+  const $ = id => document.getElementById(id);
+  const eur = n => "€" + n.toLocaleString("en-IE", { minimumFractionDigits:2, maximumFractionDigits:2 });
+  const num = n => (Math.round(n * 10) / 10).toLocaleString("en-IE");
+  const pct = (a, b) => (100 * a / b).toFixed(1) + "%";
+  const sum = (rows, k) => rows.reduce((s, r) => s + r[k], 0);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+  const MONDAYS = ["14 Aug","21 Aug","28 Aug","4 Sep","11 Sep","18 Sep","25 Sep","2 Oct","9 Oct","16 Oct","23 Oct","30 Oct"];
+
+  // staff menu (demo)
+  const staff = [];
+  P.forEach(r => { if (!staff.some(s => s.id === r.id)) staff.push({ id:r.id, name:r.name, role:r.role }); });
+  $("who").innerHTML = staff.map(s => `<option value="${esc(s.id)}">${esc(s.name)} (${esc(s.role)})</option>`).join("");
+  $("who").value = "S12";
+
+  function render(id) {
+    const mine = P.filter(r => r.id === id).sort((a, b) => a.week - b.week);
+    const last = mine[mine.length - 1];
+    $("hello").textContent = "Hi " + last.name;
+    $("avatar").textContent = last.name[0];
+
+    // home: last week
+    const paidH = last.hours - last.late;
+    $("weekLabel").textContent = "Week " + last.week + " · from Mon " + MONDAYS[last.week - 1];
+    $("lastPay").textContent = eur(last.pay);
+    $("lastBar").style.width = (100 * paidH / last.hours) + "%";
+    $("lastPaid").textContent = num(paidH) + " hrs earned tips";
+    $("lastLate").textContent = num(last.late) + " hrs after 23:00 earned none";
+    $("lastSrc").textContent = "payouts.csv · staff_id = " + id + ", week = " + last.week + " · tip_payout_eur; hours; hours_after_2300";
+
+    // home: the hidden figure
+    const h = sum(mine, "hours"), z = sum(mine, "late");
+    $("zeroPct").textContent = pct(z, h) + " of your hours earned no tips";
+    $("zeroText").textContent = num(z) + " of your " + num(h) + " hours, over " + mine.length + " weeks, were after 23:00. Your Monday text does not show this.";
+    $("zeroBar").style.width = (100 * (h - z) / h) + "%";
+    $("zeroSrc").textContent = "payouts.csv · staff_id = " + id + ", weeks 1–" + last.week + " (" + mine.length + " rows) · sum(hours_after_2300) ÷ sum(hours)";
+
+    // weeks
+    const maxH = Math.max(...mine.map(r => r.hours));
+    $("weekList").innerHTML = mine.slice().reverse().map(r => `
+      <div class="wk">
+        <div><b>Wk ${r.week}</b><div class="sub">${MONDAYS[r.week - 1]}</div></div>
+        <div>
+          <div class="meter" style="width:${(100 * r.hours / maxH).toFixed(1)}%"><span class="paid" style="width:${(100 * (r.hours - r.late) / r.hours).toFixed(1)}%"></span></div>
+          <div class="sub">${num(r.hours)} hrs · ${num(r.late)} with no tips</div>
+        </div>
+        <div class="eur">${eur(r.pay)}</div>
+      </div>`).join("");
+    $("weeksSrc").textContent = "payouts.csv · staff_id = " + id + ", weeks 1–" + last.week + " · hours, hours_after_2300, tip_payout_eur per row";
+
+    // how
+    const wk = P.filter(r => r.week === last.week);
+    const all = sum(wk, "points");
+    $("howCard").innerHTML = `
+      <div class="label">Week ${last.week}. Every euro of card tips goes into one pool.</div>
+      <div class="step"><span class="n">1</span><div>All card tips that week<div class="sum">${eur(last.pool)}</div></div></div>
+      <div class="step"><span class="n">2</span><div>Your points: ${esc(last.role)} = ${last.pph} per hour, before 23:00 only<div class="sum">${last.pph} × (${num(last.hours)} − ${num(last.late)}) = ${last.points}</div></div></div>
+      <div class="step"><span class="n">3</span><div>Everyone's points that week<div class="sum">${all.toFixed(2)}</div></div></div>
+      <div class="step"><span class="n">4</span><div>Your tips<div class="sum">${eur(last.pool)} × ${last.points} ÷ ${all.toFixed(2)} = ${eur(last.pay)}</div></div></div>
+      <div class="label" style="margin-top:8px">Uses only your own numbers and the week's totals. Never anyone else's pay.</div>
+      <div class="src">payouts.csv · week = ${last.week}: week_pool_eur; staff_id = ${esc(id)}: points_per_hour, hours, hours_after_2300, points, tip_payout_eur; all ${wk.length} rows: sum(points)</div>`;
+  }
+
+  // groups
+  const grp = role => (role === "chef" || role === "kitchen porter") ? "Kitchen" : "Floor";
+  const tot = { h:sum(P, "hours"), p:sum(P, "pay"), l:sum(P, "late") };
+  $("groups").innerHTML = ["Floor", "Kitchen"].map(g => {
+    const rows = P.filter(r => grp(r.role) === g);
+    return `<div class="grp"><h3>${g}</h3>
+      <div class="row"><span>Hours</span><b>${pct(sum(rows, "hours"), tot.h)}</b></div>
+      <div class="row"><span>Tips</span><b>${pct(sum(rows, "pay"), tot.p)}</b></div>
+      <div class="row"><span>No-tip hrs</span><b>${pct(sum(rows, "late"), tot.l)}</b></div></div>`;
+  }).join("");
+  $("sc").textContent = eur(T.reduce((s, r) => s + r.sc, 0));
+  $("scText").textContent = "On " + T.filter(r => r.to === "house").length + " of " + T.length + " opening days, all of it went to the house (Halloran's), not staff.";
+
+  // tabs
+  function go(name) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === name));
+    document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.go === name));
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => go(b.dataset.go)));
+
+  // topic chips
+  let topic = "My tips look wrong";
+  document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", "false"));
+    c.setAttribute("aria-pressed", "true"); topic = c.textContent;
+  }));
+
+  // concerns: simulated, this browser only
+  const KEY = "sciar-concerns-demo";
+  let mem = [];
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return mem; } };
+  const save = list => { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) { mem = list; } };
+  function showMine() {
+    const list = load().filter(c => c.id === $("who").value);
+    $("mine").innerHTML = list.length
+      ? list.slice().reverse().map(c => `<div class="msg"><b>${esc(c.topic)}</b><div>${esc(c.text)}</div><div class="label" style="font-size:.75rem;margin-top:4px">Sent ${esc(c.when)}</div><span class="status">Received by Sciar (demo)</span></div>`).join("")
+      : `<div class="card label">You have not asked anything yet.</div>`;
+  }
+  $("send").addEventListener("click", () => {
+    const text = $("msg").value.trim();
+    if (!text) { $("sent").textContent = "Please write a message first."; return; }
+    const list = load();
+    list.push({ id:$("who").value, topic, text, when:new Date().toLocaleString("en-IE", { dateStyle:"medium", timeStyle:"short" }) });
+    save(list);
+    $("msg").value = "";
+    $("sent").textContent = "✓ Saved. You can see it below.";
+    showMine();
+  });
+
+  $("who").addEventListener("change", e => { render(e.target.value); showMine(); $("sent").textContent = ""; });
+  render("S12"); showMine();
+}
+</script>
+</body>
+</html>
