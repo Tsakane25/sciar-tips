@@ -1,0 +1,3 @@
+AI sessions for CA2
+
+1. Claude chat (main build session): 
